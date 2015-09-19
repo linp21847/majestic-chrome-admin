@@ -65,6 +65,7 @@ class Response {
     # Parses the response xml, storing the result internally
     private function importData($xml_data, $timeout) {
         $reader = new XMLReader();
+        echo $xml_data;
         $reader->open($xml_data, "UTF-8");
         $dataTable = null;
 

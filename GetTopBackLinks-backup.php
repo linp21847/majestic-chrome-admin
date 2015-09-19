@@ -38,40 +38,40 @@
 require_once 'majesticseo-external-rpc/APIService.php';
 
 
-$endpoint = "GetTopPages";
+$endpoint = "http://enterprise.majesticseo.com/api_command";
 
-echo("\n***********************************************************" .
+fwrite(STDOUT, "\n***********************************************************" .
     "*****************");
 
-echo("\n\nEndpoint: $endpoint\n");
+fwrite(STDOUT, "\n\nEndpoint: $endpoint");
 
 if("http://enterprise.majesticseo.com/api_command" == $endpoint) {
-    echo("\n\nThis program is hard-wired to the Enterprise API.");
-    echo("\n\nIf you do not have access to the Enterprise API, " .
+    fwrite(STDOUT, "\n\nThis program is hard-wired to the Enterprise API.");
+    fwrite(STDOUT, "\n\nIf you do not have access to the Enterprise API, " .
         "change the endpoint to: \nhttp://developer.majesticseo.com/api_command.");
 } else {
-    echo("\n\nThis program is hard-wired to the Developer API " .
+    fwrite(STDOUT, "\n\nThis program is hard-wired to the Developer API " .
         "and hence the subset of data \nreturned will be substantially " .
         "smaller than that which will be returned from \neither the " .
         "Enterprise API or the Majestic SEO website.");
 
-    echo "\n\nTo make this program use the Enterprise API, change " .
-        "the endpoint to: \nhttp://enterprise.majesticseo.com/api_command.";
+    fwrite(STDOUT, "\n\nTo make this program use the Enterprise API, change " .
+        "the endpoint to: \nhttp://enterprise.majesticseo.com/api_command.");
 }
 
-echo("\n\n***********************************************************" .
+fwrite(STDOUT, "\n\n***********************************************************" .
     "*****************");
 
-echo("\n\n\nThis example program will return key information about \"index items\"." .
+fwrite(STDOUT, "\n\n\nThis example program will return key information about \"index items\"." .
         "\n\nThe following must be provided in order to run this program: " .
         "\n1. API key \n2. List of items to query" .
         "\n\nPlease enter your API key:\n");
 
-$app_api_key = "B253E4A6CF4798EFB631225CCE98C37F";
+$app_api_key = fgets(STDIN);
 
-echo("\nPlease enter a URL, domain or subdomain to query:\n");
+fwrite(STDOUT, "\nPlease enter a URL, domain or subdomain to query:\n");
 
-$itemToQuery = "www.digitalocean.com";
+$itemToQuery = fgets(STDIN);
 
 $parameters = array();
 $parameters["MaxSourceURLs"] = 10;
@@ -86,48 +86,48 @@ $response = $api_service->executeCommand("GetTopBackLinks", $parameters);
 if($response->isOK() == "true") {
     $results = $response->getTableForName("URL");
     foreach($results->getTableRows() as $row) {
-        echo("\nURL: ".$row['SourceURL']);
-        echo("\nACRank: ".$row['ACRank']."\n");
+        fwrite(STDOUT, "\nURL: ".$row['SourceURL']);
+        fwrite(STDOUT, "\nACRank: ".$row['ACRank']."\n");
     }
 
     if("http://developer.majesticseo.com/api_command" == $endpoint) {
-        echo("\n\n***********************************************************" .
+        fwrite(STDOUT, "\n\n***********************************************************" .
             "*****************");
 
-        echo("\n\nEndpoint: " . $endpoint);
+        fwrite(STDOUT, "\n\nEndpoint: " . $endpoint);
 
-        echo("\n\nThis program is hard-wired to the Developer API " .
+        fwrite(STDOUT, "\n\nThis program is hard-wired to the Developer API " .
             "and hence the subset of data \nreturned will be substantially " .
             "smaller than that which will be returned from \neither the " .
             "Enterprise API or the Majestic SEO website.");
 
-        echo("\n\nTo make this program use the Enterprise API, change " .
+        fwrite(STDOUT, "\n\nTo make this program use the Enterprise API, change " .
             "the endpoint to: \nhttp://enterprise.majesticseo.com/api_command.");
 
-        echo("\n\n***********************************************************" .
+        fwrite(STDOUT, "\n\n***********************************************************" .
             "*****************\n");
     }
 } else {
-    echo("\nERROR MESSAGE:");
-    echo("\n" . $response->getErrorMessage());
+    fwrite(STDOUT, "\nERROR MESSAGE:");
+    fwrite(STDOUT, "\n" . $response->getErrorMessage());
 
-    echo("\n\n\n***********************************************************" .
+    fwrite(STDOUT, "\n\n\n***********************************************************" .
         "*****************");
 
-    echo("\n\nDebugging Info:");
-    echo("\n\n  Endpoint: \t" . $endpoint);
-    echo("\n  API Key: \t" . $app_api_key);
+    fwrite(STDOUT, "\n\nDebugging Info:");
+    fwrite(STDOUT, "\n\n  Endpoint: \t" . $endpoint);
+    fwrite(STDOUT, "\n  API Key: \t" . $app_api_key);
 
     if("http://enterprise.majesticseo.com/api_command" == $endpoint) {
-        echo("\n  Is this API Key valid for this Endpoint?");
+        fwrite(STDOUT, "\n  Is this API Key valid for this Endpoint?");
 
-        echo("\n\n  This program is hard-wired to the Enterprise API.");
+        fwrite(STDOUT, "\n\n  This program is hard-wired to the Enterprise API.");
 
-        echo("\n\n  If you do not have access to the Enterprise API, " .
+        fwrite(STDOUT, "\n\n  If you do not have access to the Enterprise API, " .
             "change the endpoint to: \n  http://developer.majesticseo.com/api_command.\n");
     }
 
-    echo("\n***********************************************************" .
+    fwrite(STDOUT, "\n***********************************************************" .
         "*****************\n");
 }
 
