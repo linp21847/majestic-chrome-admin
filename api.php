@@ -1,5 +1,7 @@
 <?php
 	require_once 'Majestic.php';
+
+	header('Access-Control-Allow-Origin: *');
 	$mine = new Majestic();
 	
 
